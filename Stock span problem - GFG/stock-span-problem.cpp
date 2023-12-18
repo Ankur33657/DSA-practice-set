@@ -12,15 +12,16 @@ class Solution
     //Function to calculate the span of stockâ€™s price for all n days.
     vector <int> calculateSpan(int price[], int n)
     {
-       stack<int>st;
        vector<int>res(n);
+       stack<pair<int,int>>st;
        for(int i=0;i<n;i++){
-           while(!st.empty() && price[st.top()]<=price[i])st.pop();
+           while(!st.empty() && st.top().first<=price[i])st.pop();
            if(st.empty())res[i]=i+1;
            else{
-               res[i]=i-st.top();
+               res[i]=i-st.top().second;
            }
-           st.push(i);
+           
+           st.push({price[i],i});
        }
        return res;
     }
